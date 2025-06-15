@@ -83,7 +83,7 @@ const callApiBtn = document.getElementById('call-api') as HTMLButtonElement
 
 callApiBtn.addEventListener('click', async () => {
     try {
-        const response = await fetch('http://8.130.108.60:30081/transactions/li-qiang')
+        const response = await fetch('http://8.130.108.60:30080/transactions/li-qiang')
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`)
         }
