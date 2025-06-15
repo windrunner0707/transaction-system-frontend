@@ -83,7 +83,7 @@ const callApiBtn = document.getElementById('call-api') as HTMLButtonElement
 
 callApiBtn.addEventListener('click', async () => {
     try {
-        const response = await fetch('http://transaction-system.default.svc.cluster.local/transactions/li-qiang')
+        const response = await fetch('http://transaction-system.windrunner0707.tech:30080/transactions/li-qiang')
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`)
         }
