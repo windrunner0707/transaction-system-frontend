@@ -1,24 +1,21 @@
 import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+
+let counter = 0
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
+  <div style="text-align: center;">
+    <img src="/qiangshen.jpg" alt="强神" style="width: 300px; border-radius: 12px;" />
+    <div class="card" style="margin-top: 16px;">
+      <button id="counter" type="button">功德 +1</button>
     </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
+    <p id="gongde-value">当前功德值：0</p>
   </div>
 `
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+const counterBtn = document.getElementById('counter') as HTMLButtonElement
+const gongdeText = document.getElementById('gongde-value')!
+
+counterBtn.addEventListener('click', () => {
+    counter++
+    gongdeText.textContent = `当前功德值：${counter}`
+})
