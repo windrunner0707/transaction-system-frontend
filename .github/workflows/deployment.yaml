@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  IMAGE_NAME: frontend
+  IMAGE_NAME: transaction-system-frontend
   ACR_REGISTRY: crpi-kw9b5zmptdsw1y03.cn-wulanchabu.personal.cr.aliyuncs.com
   ACR_NAMESPACE: windrunner0707
 
