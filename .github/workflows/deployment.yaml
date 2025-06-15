@@ -1,0 +1,60 @@
+name: Build and Deploy Frontend to K3s
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  IMAGE_NAME: frontend
+  ACR_REGISTRY: rpi-kw9b5zmptdsw1y03.cn-wulanchabu.personal.cr.aliyuncs.com
+  ACR_NAMESPACE: windrunner0707
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Build React App
+        run: |
+          npm install
+          npm run build
+
+      - name: Build Docker Image
+        run: |
+          docker build -t $ACR_REGISTRY/$ACR_NAMESPACE/$IMAGE_NAME:latest .
+
+      - name: Login to ACR
+        run: |
+          echo "${{ secrets.ACR_PASSWORD }}" | docker login $ACR_REGISTRY -u ${{ secrets.ACR_USERNAME }} --password-stdin
+
+      - name: Push Docker Image
+        run: |
+          docker push $ACR_REGISTRY/$ACR_NAMESPACE/$IMAGE_NAME:latest
+
+      - name: Upload K8s Manifests to Server
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          source: "k8s/*"
+          target: "/home/${{ secrets.SERVER_USER }}/frontend-deploy"
+
+      - name: Deploy to K3s via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+            kubectl apply -f /home/${{ secrets.SERVER_USER }}/frontend-deploy

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transaction-system-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transaction-system-frontend
+  template:
+    metadata:
+      labels:
+        app: transaction-system-frontend
+    spec:
+      containers:
+        - name: transaction-system-frontend
+          image: crpi-kw9b5zmptdsw1y03.cn-wulanchabu.personal.cr.aliyuncs.com/windrunner0707/transaction-system-frontend:latest
+          ports:
+            - containerPort: 80
