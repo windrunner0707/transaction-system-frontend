@@ -94,3 +94,34 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+@keyframes bounce {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.animate-bounce {
+  animation: bounce 0.3s ease;
+}
+
+@keyframes incense-rise {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-80px) scale(1.2);
+  }
+}
+
+.incense {
+  position: absolute;
+  font-size: 24px;
+  pointer-events: none;
+  animation: incense-rise 1.2s ease-out forwards;
+  color: #d2691e;
+  text-shadow: 0 0 6px #ffdead;
+}
+
