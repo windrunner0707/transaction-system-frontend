@@ -125,3 +125,24 @@ button:focus-visible {
   text-shadow: 0 0 6px #ffdead;
 }
 
+@keyframes danmu-rise {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100px) scale(1.1);
+  }
+}
+
+.danmu {
+  position: absolute;
+  font-size: 18px;
+  color: #ff69b4;
+  pointer-events: none;
+  animation: danmu-rise 1.5s ease-out forwards;
+  white-space: nowrap;
+  text-shadow: 1px 1px 2px #00000055;
+}
+

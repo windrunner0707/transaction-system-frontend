@@ -6,6 +6,19 @@ let length = 0
 // 是否已经播放过好汉歌
 let haohanPlayed = false
 
+const phrases = [
+    "神牛附体！",
+    "今日宜进尺 📏",
+    "你已惊动祖师爷！",
+    "再点一下，牛界封神！",
+    "香火旺盛，牛运长存 🕯️",
+    "这不是你第一次这么长了吧？",
+    "代码都被你吓出 bug 了",
+    "NASA 正在定位你的位置",
+    "你已经超越人类极限！",
+    "兄弟，你还好吗？😳"
+]
+
 // 页面结构
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div style="text-align: center; position: relative;">
@@ -52,6 +65,7 @@ counterBtn.addEventListener('click', () => {
     incense.textContent = '💦'  // 可自定义其他符号
 
     const rect = counterBtn.getBoundingClientRect()
+    showDanmu(rect.left + rect.width / 2, rect.top)
     incense.style.left = `${rect.left + rect.width / 2 - 12}px`
     incense.style.top = `${rect.top - 10}px`
 
@@ -61,3 +75,19 @@ counterBtn.addEventListener('click', () => {
         incense.remove()
     })
 })
+
+function showDanmu(baseX: number, baseY: number) {
+    const phrase = phrases[Math.floor(Math.random() * phrases.length)]
+    const danmu = document.createElement('div')
+    danmu.className = 'danmu'
+    danmu.textContent = phrase
+
+    const offsetX = Math.random() * 100 - 50
+    const offsetY = Math.random() * 20
+    danmu.style.left = `${baseX + offsetX}px`
+    danmu.style.top = `${baseY - offsetY}px`
+
+    document.body.appendChild(danmu)
+    danmu.addEventListener('animationend', () => danmu.remove())
+}
+
