@@ -57,4 +57,5 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+            kubectl delete deployment transaction-system-frontend --ignore-not-found
             kubectl apply -f /home/${{ secrets.SERVER_USER }}/frontend-deploy/k8s
