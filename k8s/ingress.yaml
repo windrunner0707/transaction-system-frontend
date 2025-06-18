@@ -4,8 +4,12 @@ metadata:
   name: frontend-ingress
   namespace: default
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: traefik
 spec:
+  tls:
+    - hosts:
+        - www.windrunner0707.tech
+      secretName: windrunner-tls
   rules:
     - host: www.windrunner0707.tech
       http:
@@ -14,6 +18,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: transaction-system-frontend
+                name: frontend-service
                 port:
                   number: 80
