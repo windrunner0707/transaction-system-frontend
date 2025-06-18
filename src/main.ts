@@ -29,9 +29,6 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <p id="length-value">当前牛子长度：0 cm</p>
     <audio id="haohan-audio" src="/haohan.mp3"></audio>
   </div>
-  <div class="card" style="margin-top: 8px;">
-    <button id="call-api" type="button">访问李强接口</button>
-  </div>
 `
 
 const counterBtn = document.getElementById('counter') as HTMLButtonElement
@@ -77,21 +74,6 @@ counterBtn.addEventListener('click', () => {
     incense.addEventListener('animationend', () => {
         incense.remove()
     })
-})
-
-const callApiBtn = document.getElementById('call-api') as HTMLButtonElement
-
-callApiBtn.addEventListener('click', async () => {
-    try {
-        const response = await fetch('http://8.130.108.60:30080/transactions/li-qiang')
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`)
-        }
-        const data = await response.text() // 或者 .json() 取决于返回格式
-        alert(`接口响应内容：\n${data}`)
-    } catch (error) {
-        alert(`调用失败：${error}`)
-    }
 })
 
 function showDanmu(baseX: number, baseY: number) {
